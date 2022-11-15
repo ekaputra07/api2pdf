@@ -5,7 +5,10 @@ defmodule Api2pdf.Model.ChromeHtmlToPdfRequestTest do
   doctest ChromeHtmlToPdfRequest
 
   test "new" do
-    %ChromeHtmlToPdfRequest{html: "html", inline: true, useCustomStorage: false} =
-      ChromeHtmlToPdfRequest.new("html")
+    assert ChromeHtmlToPdfRequest.new("html") == %ChromeHtmlToPdfRequest{
+             html: "html",
+             inline: true,
+             useCustomStorage: false
+           }
   end
 end

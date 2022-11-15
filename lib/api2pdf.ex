@@ -1,7 +1,13 @@
+defmodule Api2pdf.HttpClientBehaviour do
+  @callback client(keyword) :: Tesla.Client.t()
+end
+
 defmodule Api2pdf do
   @moduledoc """
   Documentation for `Api2pdf`.
   """
+  @behaviour Api2pdf.HttpClientBehaviour
+
   alias Api2pdf.Model.ApiSuccessResponse
   alias Api2pdf.Util
 
@@ -30,7 +36,7 @@ defmodule Api2pdf do
     api_key = Keyword.fetch!(options, :api_key)
 
     headers = [
-      {"accept", "Application/json; Charset=utf-8"},
+      {"accept", "application/json"},
       {"authorization", api_key},
       {"user-agent", @user_agent}
     ]

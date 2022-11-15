@@ -5,7 +5,10 @@ defmodule Api2pdf.Model.ChromeHtmlToImageRequestTest do
   doctest ChromeHtmlToImageRequest
 
   test "new" do
-    %ChromeHtmlToImageRequest{html: "html", inline: true, useCustomStorage: false} =
-      ChromeHtmlToImageRequest.new("html")
+    assert ChromeHtmlToImageRequest.new("html") == %ChromeHtmlToImageRequest{
+             html: "html",
+             inline: true,
+             useCustomStorage: false
+           }
   end
 end
