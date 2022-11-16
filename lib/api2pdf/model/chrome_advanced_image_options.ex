@@ -12,6 +12,7 @@ defmodule Api2pdf.Model.ChromeAdvancedImageOptions do
     :viewPortOptions
   ]
 
+  @typedoc false
   @type t :: %__MODULE__{
           delay: number(),
           puppeteerWaitForMethod: String.t(),

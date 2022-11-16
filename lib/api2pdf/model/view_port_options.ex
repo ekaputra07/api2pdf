@@ -7,8 +7,9 @@ defmodule Api2pdf.Model.ViewPortOptions do
     :height
   ]
 
+  @typedoc false
   @type t :: %__MODULE__{
-          width: integer(),
-          height: integer()
+          width: integer,
+          height: integer
         }
 end

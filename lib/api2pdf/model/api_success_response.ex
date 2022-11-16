@@ -1,5 +1,6 @@
 defmodule Api2pdf.Model.ApiSuccessResponse do
-  @moduledoc false
+  @moduledoc """
+  """
 
   defstruct [
     :FileUrl,
@@ -11,6 +12,7 @@ defmodule Api2pdf.Model.ApiSuccessResponse do
     :Error
   ]
 
+  @typedoc false
   @type t :: %__MODULE__{
           FileUrl: String.t(),
           MbOut: number,
@@ -21,12 +23,12 @@ defmodule Api2pdf.Model.ApiSuccessResponse do
           Error: String.t()
         }
 
-  @spec from_body(map) :: __MODULE__.t()
   @doc """
   Convert body from map to `Api2pdf.Model.ApiSuccessResponse` struct.
 
   This is due to different type of field between the map (string) and the struct (atom).
   """
+  @spec from_body(map) :: __MODULE__.t()
   def from_body(body) do
     # remove atom :__struct__ from keys
     keys = Map.keys(%__MODULE__{}) |> Enum.reject(fn i -> i == :__struct__ end)

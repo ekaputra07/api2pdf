@@ -23,7 +23,10 @@ defmodule Api2pdf.MixProject do
     [
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17"},
-      {:jason, ">= 1.0.0"}
+      {:jason, ">= 1.0.0"},
+      # dev and tests
+      {:mox, "~> 1.0", only: :test},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
     ]
   end
 end

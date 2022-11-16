@@ -16,7 +16,7 @@ defmodule Api2pdf.Model.ApiSuccessResponseTest do
       "UnknownField" => "unknown"
     }
 
-    assert ApiSuccessResponse.from_body(body) == %ApiSuccessResponse{
+    assert %ApiSuccessResponse{
              FileUrl: "url",
              MbOut: 1,
              Cost: 2,
@@ -24,6 +24,6 @@ defmodule Api2pdf.Model.ApiSuccessResponseTest do
              ResponseId: "id",
              Seconds: 3,
              Error: "error"
-           }
+           } = ApiSuccessResponse.from_body(body)
   end
 end

@@ -17,6 +17,7 @@ defmodule Api2pdf.Model.ChromeUrlToPdfRequest do
     useCustomStorage: false
   ]
 
+  @typedoc false
   @type t :: %__MODULE__{
           url: String.t(),
           fileName: String.t(),
@@ -27,10 +28,10 @@ defmodule Api2pdf.Model.ChromeUrlToPdfRequest do
           useCustomStorage: boolean()
         }
 
-  @spec new(String.t()) :: __MODULE__.t()
   @doc """
   Create new instance of `Api2pdf.Model.ChromeUrlToPdfRequest` with `url`
   as a parameter.
   """
+  @spec new(String.t()) :: __MODULE__.t()
   def new(url), do: %__MODULE__{url: url}
 end

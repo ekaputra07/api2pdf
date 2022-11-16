@@ -5,10 +5,10 @@ defmodule Api2pdf.Model.ChromeUrlToPdfRequestTest do
   doctest ChromeUrlToPdfRequest
 
   test "new" do
-    assert ChromeUrlToPdfRequest.new("url") == %ChromeUrlToPdfRequest{
+    assert %ChromeUrlToPdfRequest{
              url: "url",
              inline: true,
              useCustomStorage: false
-           }
+           } = ChromeUrlToPdfRequest.new("url")
   end
 end

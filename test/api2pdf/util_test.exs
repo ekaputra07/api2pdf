@@ -8,17 +8,17 @@ defmodule Api2pdf.UtilTest do
     inner = %{"d" => 1, "e" => nil}
     outer = %{"a" => 1, "b" => nil, "c" => inner}
 
-    assert Util.prune_nils(outer) == %{"a" => 1, "c" => %{"d" => 1}}
+    assert %{"a" => 1, "c" => %{"d" => 1}} = Util.prune_nils(outer)
   end
 
   test "prune_nils(struct)" do
     request = %ChromeUrlToPdfRequest{url: "test", storage: %FileStorageOptions{method: "put"}}
 
-    assert Util.prune_nils(request) == %{
+    assert %{
              storage: %{method: "put"},
              url: "test",
              inline: true,
              useCustomStorage: false
-           }
+           } = Util.prune_nils(request)
   end
 end

@@ -7,9 +7,10 @@ defmodule Api2pdf.Model.FileStorageOptions do
     :extraHTTPHeaders
   ]
 
+  @typedoc false
   @type t :: %__MODULE__{
           method: String.t(),
           url: String.t(),
-          extraHTTPHeaders: map()
+          extraHTTPHeaders: map
         }
 end

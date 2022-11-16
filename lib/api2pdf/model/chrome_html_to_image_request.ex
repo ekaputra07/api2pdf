@@ -14,6 +14,7 @@ defmodule Api2pdf.Model.ChromeHtmlToImageRequest do
     useCustomStorage: false
   ]
 
+  @typedoc false
   @type t :: %__MODULE__{
           html: String.t(),
           fileName: String.t(),

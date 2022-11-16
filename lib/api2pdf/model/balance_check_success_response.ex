@@ -3,6 +3,7 @@ defmodule Api2pdf.Model.BalanceCheckSuccessResponse do
 
   defstruct [:UserBalance]
 
+  @typedoc false
   @type t :: %__MODULE__{
           UserBalance: number()
         }
