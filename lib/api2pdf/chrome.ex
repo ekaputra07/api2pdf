@@ -71,10 +71,10 @@ defmodule Api2pdf.Chrome do
 
   @doc """
   Send a convert request with an option to specify complete
-  parameters supported by the API.
+  parameters that are supported by the API.
 
-  Payloads are modelled in the form of struct and options
-  are optional and currently only support `tag`.
+  Payloads are modeled in the form of struct and options
+  are optional and currently only support `tag` keyword.
 
   Available request payloads:
 
