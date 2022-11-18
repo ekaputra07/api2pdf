@@ -1,6 +1,6 @@
 defmodule Api2pdf.Chrome do
   @moduledoc """
-  Send document conversion request using Headless Chrome.
+  Convert HTML document, web page to PDF or Image using Headless Chrome backend.
   """
 
   alias Api2pdf.Model.{
@@ -11,7 +11,7 @@ defmodule Api2pdf.Chrome do
   }
 
   @doc """
-  Send a request to convert HTML document to Image with default configuration.
+  Convert HTML document to Image with default configuration.
 
   For a full control of request options please use `request/2`.
 
@@ -26,7 +26,7 @@ defmodule Api2pdf.Chrome do
     do: %ChromeHtmlToImageRequest{html: html} |> request(options)
 
   @doc """
-  Send a request to convert HTML document to PDF with default configuration.
+  Convert HTML document to PDF with default configuration.
 
   For a full control of request options please use `request/2`.
 
@@ -41,7 +41,7 @@ defmodule Api2pdf.Chrome do
     do: %ChromeHtmlToPdfRequest{html: html} |> request(options)
 
   @doc """
-  Send a request to convert URL to image with default configuration.
+  Convert URL to image with default configuration.
 
   For a full control of request options please use `request/2`.
 
@@ -55,7 +55,7 @@ defmodule Api2pdf.Chrome do
     do: %ChromeUrlToImageRequest{url: url} |> request(options)
 
   @doc """
-  Send a request to convert URL to PDF with default configuration.
+  Convert URL to PDF with default configuration.
 
   For a full control of request options please use `request/2`.
 
@@ -73,8 +73,7 @@ defmodule Api2pdf.Chrome do
   Send a convert request with an option to specify complete
   parameters that are supported by the API.
 
-  Payloads are modeled in the form of struct and options
-  are optional and currently only support `tag` keyword.
+  Payloads are modeled in the form of struct and options is keyword.
 
   Available request payloads:
 

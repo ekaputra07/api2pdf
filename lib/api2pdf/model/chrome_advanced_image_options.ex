@@ -1,6 +1,6 @@
 defmodule Api2pdf.Model.ChromeAdvancedImageOptions do
   @moduledoc """
-  Advanced Headless Chrome options like margins, headers, and footers.
+  https://app.swaggerhub.com/apis-docs/api2pdf/api2pdf/2.0.0#/ChromeAdvancedImageOptions
   """
   alias Api2pdf.Model.ViewPortOptions
 
@@ -12,7 +12,6 @@ defmodule Api2pdf.Model.ChromeAdvancedImageOptions do
     :viewPortOptions
   ]
 
-  @typedoc false
   @type t :: %__MODULE__{
           delay: number(),
           puppeteerWaitForMethod: String.t(),

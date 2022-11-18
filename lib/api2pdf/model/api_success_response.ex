@@ -1,7 +1,7 @@
 defmodule Api2pdf.Model.ApiSuccessResponse do
   @moduledoc """
+  https://app.swaggerhub.com/apis-docs/api2pdf/api2pdf/2.0.0#/ApiResponseSuccess
   """
-
   defstruct [
     :FileUrl,
     :MbOut,
@@ -12,7 +12,6 @@ defmodule Api2pdf.Model.ApiSuccessResponse do
     :Error
   ]
 
-  @typedoc false
   @type t :: %__MODULE__{
           FileUrl: String.t(),
           MbOut: number,
@@ -25,8 +24,6 @@ defmodule Api2pdf.Model.ApiSuccessResponse do
 
   @doc """
   Convert body from map to `Api2pdf.Model.ApiSuccessResponse` struct.
-
-  This is due to different type of field between the map (string) and the struct (atom).
   """
   @spec from_body(map) :: __MODULE__.t()
   def from_body(body) do

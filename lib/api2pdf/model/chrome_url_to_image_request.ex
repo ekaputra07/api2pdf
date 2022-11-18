@@ -1,6 +1,8 @@
 defmodule Api2pdf.Model.ChromeUrlToImageRequest do
   @moduledoc """
-  A request to convert a URL or Web Page to PDF using Headless Chrome.
+  Request payload to convert a URL or Web Page into PDF using Headless Chrome.
+
+  https://app.swaggerhub.com/apis-docs/api2pdf/api2pdf/2.0.0#/Headless%20Chrome/chromeImageFromUrlPost
   """
   alias Api2pdf.Model.FileStorageOptions
 
@@ -14,7 +16,6 @@ defmodule Api2pdf.Model.ChromeUrlToImageRequest do
     useCustomStorage: false
   ]
 
-  @typedoc false
   @type t :: %__MODULE__{
           url: String.t(),
           fileName: String.t(),
@@ -23,7 +24,4 @@ defmodule Api2pdf.Model.ChromeUrlToImageRequest do
           inline: boolean(),
           useCustomStorage: boolean()
         }
-
-  @spec new(String.t()) :: __MODULE__.t()
-  def new(url), do: %__MODULE__{url: url}
 end

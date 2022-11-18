@@ -1,4 +1,6 @@
 defmodule Api2pdf.Util do
+  @moduledoc false
+
   # exclude nill values from Map or Struct
   # https://github.com/devinus/poison/issues/55#issuecomment-581916926
   @spec prune_nils(map) :: map

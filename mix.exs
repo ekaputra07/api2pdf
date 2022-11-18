@@ -7,7 +7,11 @@ defmodule Api2pdf.MixProject do
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      name: "Api2pdf",
+      source_url: "https://github.com/ekaputra07/api2pdf",
+      homepage_url: "https://github.com/ekaputra07/api2pdf",
+      docs: docs()
     ]
   end
 
@@ -27,6 +31,13 @@ defmodule Api2pdf.MixProject do
       # dev and tests
       {:mox, "~> 1.0", only: :test},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false}
+    ]
+  end
+
+  defp docs do
+    [
+      main: "Api2pdf",
+      extras: ["README.md", "LICENSE"]
     ]
   end
 end

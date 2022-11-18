@@ -1,16 +1,13 @@
 defmodule Api2pdf.ClientBehaviour do
-  @moduledoc false
-
   alias Api2pdf.Model.ApiSuccessResponse
 
-  @doc false
   @callback make_request(url :: String.t(), payload :: struct, options :: keyword) ::
               {:ok, ApiSuccessResponse.t()} | {:error, any}
 end
 
 defmodule Api2pdf.Client do
   @moduledoc """
-  The default client that is based on `Tesla` and implements `Api2pdf.ClientBehaviour.make_request/3`.
+  The default HTTP client that is based on `Tesla`.
   """
 
   alias Api2pdf.Util
@@ -18,18 +15,14 @@ defmodule Api2pdf.Client do
 
   @behaviour Api2pdf.ClientBehaviour
 
-  @user_agent "Api2pdf Elixir client/0.1.x (https://github.com/elixir-id/api2pdf)"
+  @user_agent "Api2pdf Elixir client/0.1.x (https://github.com/ekaputra07/api2pdf)"
 
-  @doc """
-  Setup the HTTP client, in this case `Tesla`.
-  """
   @spec make_client(keyword) :: Tesla.Client.t()
-  def make_client(options) do
-    base_url = Application.get_env(:api2pdf, :base_url, "https://v2.api2pdf.com")
-    api_key = Application.get_env(:api2pdf, :api_key, "")
-
-    adapter =
-      Application.get_env(:api2pdf, :adapter, {Tesla.Adapter.Hackney, [recv_timeout: 30_000]})
+  def make_client(options \\ []) do
+    base_url = read_config(options, :base_url, "https://v2.api2pdf.com")
+    api_key = read_config(options, :api_key, "")
+    adapter = read_config(options, :adapter, {Tesla.Adapter.Hackney, [recv_timeout: 30_000]})
+    tag = read_config(options, :tag)
 
     headers = [
       {"accept", "application/json"},
@@ -38,9 +31,9 @@ defmodule Api2pdf.Client do
     ]
 
     headers =
-      case Keyword.fetch(options, :tag) do
-        {:ok, tag} -> [{"tag", tag}] ++ headers
-        _ -> headers
+      case tag do
+        nil -> headers
+        tag -> [{"tag", tag}] ++ headers
       end
 
     middlewares = [
@@ -52,19 +45,9 @@ defmodule Api2pdf.Client do
     Tesla.client(middlewares, adapter)
   end
 
-  @doc """
-  Making the actual request to the API endpoint. A behaviour implementation of `Api2pdf.ClientBehaviour.make_request/3`.
-
-  Most of the time you won't need to call this function directly but here's an example usage:
-
-  ```
-  Api2pdf.Client.make_request("/chrome/pdf/html", %ChromeHtmlToPdfRequest{html: "<p>"}, tag: "some-tag")
-  ```
-  """
-  @impl true
   @spec make_request(String.t(), struct, keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
-  def make_request(endpoint, payload, options) do
+  def make_request(endpoint, payload, options \\ []) do
     client = make_client(options)
     compacted_payload = payload |> Util.prune_nils()
 
@@ -76,6 +59,15 @@ defmodule Api2pdf.Client do
 
   @doc false
   @spec handle_body(map) :: {:error, any} | {:ok, ApiSuccessResponse.t()}
-  def handle_body(%{"Error" => nil} = body), do: {:ok, ApiSuccessResponse.from_body(body)}
-  def handle_body(%{"Error" => error}), do: {:error, error}
+  defp handle_body(%{"Error" => nil} = body), do: {:ok, ApiSuccessResponse.from_body(body)}
+  defp handle_body(%{"Error" => error}), do: {:error, error}
+
+  defp read_config(options, key, default \\ nil) do
+    # Attempt to read config from given options, if doesn't exist
+    # try to read from environment variable.
+    case Keyword.fetch(options, key) do
+      {:ok, value} -> value
+      :error -> Application.get_env(:api2pdf, key, default)
+    end
+  end
 end

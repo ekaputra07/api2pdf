@@ -1,6 +1,8 @@
 defmodule Api2pdf.Model.ChromeHtmlToImageRequest do
   @moduledoc """
-  A request to convert HTML to a Image using Headless Chrome w/ Puppeteer.
+  Request payload to convert HTML document into an Image using Headless Chrome w/ Puppeteer.
+
+  https://app.swaggerhub.com/apis-docs/api2pdf/api2pdf/2.0.0#/Headless%20Chrome/chromeImageFromHtmlPost
   """
 
   alias Api2pdf.Model.FileStorageOptions
@@ -14,7 +16,6 @@ defmodule Api2pdf.Model.ChromeHtmlToImageRequest do
     useCustomStorage: false
   ]
 
-  @typedoc false
   @type t :: %__MODULE__{
           html: String.t(),
           fileName: String.t(),
@@ -22,7 +23,4 @@ defmodule Api2pdf.Model.ChromeHtmlToImageRequest do
           inline: boolean(),
           useCustomStorage: boolean()
         }
-
-  @spec new(String.t()) :: __MODULE__.t()
-  def new(html), do: %__MODULE__{html: html}
 end

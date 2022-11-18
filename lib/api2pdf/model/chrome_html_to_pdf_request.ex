@@ -1,6 +1,8 @@
 defmodule Api2pdf.Model.ChromeHtmlToPdfRequest do
   @moduledoc """
-  A request to convert HTML to a PDF using Headless Chrome w/ Puppeteer.
+  Request payload to convert HTML document into PDF using Headless Chrome w/ Puppeteer.
+
+  https://app.swaggerhub.com/apis-docs/api2pdf/api2pdf/2.0.0#/Headless%20Chrome/chromePdfFromHtmlPost
   """
 
   alias Api2pdf.Model.{ChromeAdvancedPdfOptions, FileStorageOptions}
@@ -15,7 +17,6 @@ defmodule Api2pdf.Model.ChromeHtmlToPdfRequest do
     useCustomStorage: false
   ]
 
-  @typedoc false
   @type t :: %__MODULE__{
           html: String.t(),
           fileName: String.t(),
@@ -24,11 +25,4 @@ defmodule Api2pdf.Model.ChromeHtmlToPdfRequest do
           inline: boolean(),
           useCustomStorage: boolean()
         }
-
-  @doc """
-  Create new instance of `Api2pdf.Model.ChromeHtmlToPdfRequest` with `html`
-  as a parameter.
-  """
-  @spec new(String.t()) :: __MODULE__.t()
-  def new(html), do: %__MODULE__{html: html}
 end
