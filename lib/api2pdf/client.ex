@@ -25,7 +25,7 @@ defmodule Api2pdf.Client do
     tag = read_config(options, :tag)
 
     headers = [
-      {"accept", "application/json"},
+      {"content-type", "application/json"},
       {"authorization", api_key},
       {"user-agent", @user_agent}
     ]

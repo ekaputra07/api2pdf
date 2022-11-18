@@ -28,7 +28,7 @@ defmodule Api2pdf.ClientTest do
 
       Enum.each(headers, fn h ->
         case h do
-          {"accept", value} ->
+          {"content-type", value} ->
             assert value == "application/json"
 
           {"authorization", value} ->
@@ -62,7 +62,7 @@ defmodule Api2pdf.ClientTest do
 
       Enum.each(headers, fn h ->
         case h do
-          {"accept", value} ->
+          {"content-type", value} ->
             assert value == "application/json"
 
           {"authorization", value} ->
