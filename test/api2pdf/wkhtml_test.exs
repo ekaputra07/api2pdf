@@ -8,7 +8,8 @@ defmodule Api2pdf.WkhtmlTest do
 
   alias Api2pdf.Model.{
     WkhtmlHtmlToPdfRequest,
-    WkhtmlUrlToPdfRequest
+    WkhtmlUrlToPdfRequest,
+    ApiSuccessResponse
   }
 
   test "html_to_pdf" do
@@ -16,9 +17,10 @@ defmodule Api2pdf.WkhtmlTest do
       assert url == "/wkhtml/pdf/html"
       assert options == [tag: "tag"]
       assert %WkhtmlHtmlToPdfRequest{html: "html"} = payload
+      {:ok, %ApiSuccessResponse{}}
     end)
 
-    Wkhtml.html_to_pdf("html", tag: "tag")
+    assert {:ok, %ApiSuccessResponse{}} = Wkhtml.html_to_pdf("html", tag: "tag")
   end
 
   test "url_to_pdf" do
@@ -26,8 +28,9 @@ defmodule Api2pdf.WkhtmlTest do
       assert url == "/wkhtml/pdf/url"
       assert options == [tag: "tag"]
       assert %WkhtmlUrlToPdfRequest{url: "url"} = payload
+      {:ok, %ApiSuccessResponse{}}
     end)
 
-    Wkhtml.url_to_pdf("url", tag: "tag")
+    assert {:ok, %ApiSuccessResponse{}} = Wkhtml.url_to_pdf("url", tag: "tag")
   end
 end

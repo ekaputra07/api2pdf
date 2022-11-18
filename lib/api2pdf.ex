@@ -5,8 +5,8 @@ defmodule Api2pdf do
 
   @doc false
   @spec make_request(String.t(), struct, keyword) :: {:error, any} | {:ok, ApiSuccessResponse.t()}
-  def make_request(endpoint, request, options \\ []) do
+  def make_request(endpoint, payload, options \\ []) do
     client = Application.get_env(:api2pdf, :client, Api2pdf.Client)
-    client.make_request(endpoint, request, options)
+    client.make_request(endpoint, payload, options)
   end
 end
