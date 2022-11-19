@@ -1,7 +1,5 @@
 defmodule Api2pdf do
-  @moduledoc """
-  By default `Api2pdf` is using `Tesla` as the default HTTP client with `Tesla.Adapter.Hackney` adapter.
-  """
+  @moduledoc File.read!("README.md")
 
   alias Api2pdf.Model.{
     ApiSuccessResponse,
@@ -26,6 +24,15 @@ defmodule Api2pdf do
   Utility command to check your balance on https://portal.api2pdf.com.
 
   https://app.swaggerhub.com/apis-docs/api2pdf/api2pdf/2.0.0#/Utility%20Commands/balanceCheck
+
+  ## Examples
+  ```elixir
+  # api_key in config.exs
+  Api2pdf.check_balance()
+
+  # OR, api_key as option
+  Api2pdf.check_balance(api_key: "YOUR-API-KEY")
+  ```
   """
   @spec check_balance(keyword) ::
           {:error, any} | {:ok, BalanceCheckSuccessResponse.t()}
