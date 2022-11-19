@@ -3,7 +3,7 @@ defmodule Api2pdf.ClientTest do
   import Mox
   setup :verify_on_exit!
 
-  describe "make_client" do
+  describe "make_client/1" do
     test "it load config from Application.env" do
       Application.put_all_env([
         {:api2pdf,

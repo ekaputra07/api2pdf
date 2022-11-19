@@ -5,7 +5,7 @@ defmodule Api2pdfTest do
 
   doctest Api2pdf
 
-  describe "make_post_request" do
+  describe "make_post_request/3" do
     test "it success" do
       expect(ClientMock, :post_request, fn url, payload, opts ->
         assert url == "/test"
@@ -35,7 +35,7 @@ defmodule Api2pdfTest do
     end
   end
 
-  describe "check_balance" do
+  describe "check_balance/1" do
     test "it success" do
       expect(ClientMock, :get_request, fn url, opts ->
         assert url == "/balance"

@@ -3,7 +3,7 @@ defmodule Api2pdf.Model.ApiSuccessResponseTest do
 
   alias Api2pdf.Model.ApiSuccessResponse
 
-  test "from_body(body)" do
+  test "from_body/1" do
     body = %{
       "FileUrl" => "url",
       "MbOut" => 1,

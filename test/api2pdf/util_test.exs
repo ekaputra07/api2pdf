@@ -4,14 +4,14 @@ defmodule Api2pdf.UtilTest do
   alias Api2pdf.Util
   alias Api2pdf.Model.{ChromeUrlToPdfRequest, FileStorageOptions}
 
-  test "prune_nils(map)" do
+  test "prune_nils/1 with map" do
     inner = %{"d" => 1, "e" => nil}
     outer = %{"a" => 1, "b" => nil, "c" => inner}
 
     assert %{"a" => 1, "c" => %{"d" => 1}} = Util.prune_nils(outer)
   end
 
-  test "prune_nils(struct)" do
+  test "prune_nils/1 with struct" do
     request = %ChromeUrlToPdfRequest{url: "test", storage: %FileStorageOptions{method: "put"}}
 
     assert %{

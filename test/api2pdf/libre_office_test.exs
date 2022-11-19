@@ -10,7 +10,7 @@ defmodule Api2pdf.LibreOfficeTest do
 
   alias Api2pdf.LibreOffice
 
-  test "any_to_pdf" do
+  test "any_to_pdf/2" do
     expect(ClientMock, :post_request, fn url, payload, _ ->
       assert url == "/libreoffice/any-to-pdf"
       assert %LibreOfficeRequest{url: "test_url"} = payload
@@ -21,7 +21,7 @@ defmodule Api2pdf.LibreOfficeTest do
              LibreOffice.any_to_pdf(%LibreOfficeRequest{url: "test_url"})
   end
 
-  test "any_to_image" do
+  test "any_to_image/2" do
     expect(ClientMock, :post_request, fn url, payload, _ ->
       assert url == "/libreoffice/thumbnail"
       assert %LibreOfficeRequest{url: "test_url"} = payload
@@ -32,7 +32,7 @@ defmodule Api2pdf.LibreOfficeTest do
              LibreOffice.any_to_image(%LibreOfficeRequest{url: "test_url"})
   end
 
-  test "pdf_to_html" do
+  test "pdf_to_html/2" do
     expect(ClientMock, :post_request, fn url, payload, _ ->
       assert url == "/libreoffice/pdf-to-html"
       assert %LibreOfficeRequest{url: "test_url"} = payload
@@ -43,7 +43,7 @@ defmodule Api2pdf.LibreOfficeTest do
              LibreOffice.pdf_to_html(%LibreOfficeRequest{url: "test_url"})
   end
 
-  test "html_to_docx" do
+  test "html_to_docx/2" do
     expect(ClientMock, :post_request, fn url, payload, _ ->
       assert url == "/libreoffice/html-to-docx"
       assert %LibreOfficeRequest{url: "test_url"} = payload
@@ -54,7 +54,7 @@ defmodule Api2pdf.LibreOfficeTest do
              LibreOffice.html_to_docx(%LibreOfficeRequest{url: "test_url"})
   end
 
-  test "html_to_xlsx" do
+  test "html_to_xlsx/2" do
     expect(ClientMock, :post_request, fn url, payload, _ ->
       assert url == "/libreoffice/html-to-xlsx"
       assert %LibreOfficeRequest{url: "test_url"} = payload
