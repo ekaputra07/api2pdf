@@ -7,4 +7,12 @@ defmodule Api2pdf.Model.BalanceCheckSuccessResponse do
   @type t :: %__MODULE__{
           UserBalance: number()
         }
+
+  @doc """
+  Convert body from map to `Api2pdf.Model.BalanceCheckSuccessResponse` struct.
+  """
+  @spec from_body(map) :: __MODULE__.t()
+  def from_body(body) do
+    %__MODULE__{UserBalance: Map.get(body, "UserBalance")}
+  end
 end

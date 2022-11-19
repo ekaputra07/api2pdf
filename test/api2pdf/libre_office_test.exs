@@ -11,10 +11,10 @@ defmodule Api2pdf.LibreOfficeTest do
   alias Api2pdf.LibreOffice
 
   test "any_to_pdf" do
-    expect(ClientMock, :make_request, fn url, payload, _ ->
+    expect(ClientMock, :post_request, fn url, payload, _ ->
       assert url == "/libreoffice/any-to-pdf"
       assert %LibreOfficeRequest{url: "test_url"} = payload
-      {:ok, %ApiSuccessResponse{}}
+      %{body: %{"Error" => nil}}
     end)
 
     assert {:ok, %ApiSuccessResponse{}} =
@@ -22,10 +22,10 @@ defmodule Api2pdf.LibreOfficeTest do
   end
 
   test "any_to_image" do
-    expect(ClientMock, :make_request, fn url, payload, _ ->
+    expect(ClientMock, :post_request, fn url, payload, _ ->
       assert url == "/libreoffice/thumbnail"
       assert %LibreOfficeRequest{url: "test_url"} = payload
-      {:ok, %ApiSuccessResponse{}}
+      %{body: %{"Error" => nil}}
     end)
 
     assert {:ok, %ApiSuccessResponse{}} =
@@ -33,10 +33,10 @@ defmodule Api2pdf.LibreOfficeTest do
   end
 
   test "pdf_to_html" do
-    expect(ClientMock, :make_request, fn url, payload, _ ->
+    expect(ClientMock, :post_request, fn url, payload, _ ->
       assert url == "/libreoffice/pdf-to-html"
       assert %LibreOfficeRequest{url: "test_url"} = payload
-      {:ok, %ApiSuccessResponse{}}
+      %{body: %{"Error" => nil}}
     end)
 
     assert {:ok, %ApiSuccessResponse{}} =
@@ -44,10 +44,10 @@ defmodule Api2pdf.LibreOfficeTest do
   end
 
   test "html_to_docx" do
-    expect(ClientMock, :make_request, fn url, payload, _ ->
+    expect(ClientMock, :post_request, fn url, payload, _ ->
       assert url == "/libreoffice/html-to-docx"
       assert %LibreOfficeRequest{url: "test_url"} = payload
-      {:ok, %ApiSuccessResponse{}}
+      %{body: %{"Error" => nil}}
     end)
 
     assert {:ok, %ApiSuccessResponse{}} =
@@ -55,10 +55,10 @@ defmodule Api2pdf.LibreOfficeTest do
   end
 
   test "html_to_xlsx" do
-    expect(ClientMock, :make_request, fn url, payload, _ ->
+    expect(ClientMock, :post_request, fn url, payload, _ ->
       assert url == "/libreoffice/html-to-xlsx"
       assert %LibreOfficeRequest{url: "test_url"} = payload
-      {:ok, %ApiSuccessResponse{}}
+      %{body: %{"Error" => nil}}
     end)
 
     assert {:ok, %ApiSuccessResponse{}} =

@@ -20,7 +20,7 @@ defmodule Api2pdf.LibreOffice do
   @spec any_to_pdf(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def any_to_pdf(%LibreOfficeRequest{} = payload, options \\ []),
-    do: Api2pdf.make_request("/libreoffice/any-to-pdf", payload, options)
+    do: Api2pdf.make_post_request("/libreoffice/any-to-pdf", payload, options)
 
   @doc """
   Generate an image of the first page of a PDF or Office Document.
@@ -36,7 +36,7 @@ defmodule Api2pdf.LibreOffice do
   @spec any_to_image(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def any_to_image(%LibreOfficeRequest{} = payload, options \\ []),
-    do: Api2pdf.make_request("/libreoffice/thumbnail", payload, options)
+    do: Api2pdf.make_post_request("/libreoffice/thumbnail", payload, options)
 
   @doc """
   Convert a PDF file to HTML using LibreOffice. **Limitation is that images will be lost**.
@@ -50,7 +50,7 @@ defmodule Api2pdf.LibreOffice do
   @spec pdf_to_html(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def pdf_to_html(%LibreOfficeRequest{} = payload, options \\ []),
-    do: Api2pdf.make_request("/libreoffice/pdf-to-html", payload, options)
+    do: Api2pdf.make_post_request("/libreoffice/pdf-to-html", payload, options)
 
   @doc """
   Convert HTML to `.docx` format using LibreOffice.
@@ -64,7 +64,7 @@ defmodule Api2pdf.LibreOffice do
   @spec html_to_docx(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def html_to_docx(%LibreOfficeRequest{} = payload, options \\ []),
-    do: Api2pdf.make_request("/libreoffice/html-to-docx", payload, options)
+    do: Api2pdf.make_post_request("/libreoffice/html-to-docx", payload, options)
 
   @doc """
   Convert HTML to `.xlsx` using LibreOffice.
@@ -78,5 +78,5 @@ defmodule Api2pdf.LibreOffice do
   @spec html_to_xlsx(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def html_to_xlsx(%LibreOfficeRequest{} = payload, options \\ []),
-    do: Api2pdf.make_request("/libreoffice/html-to-xlsx", payload, options)
+    do: Api2pdf.make_post_request("/libreoffice/html-to-xlsx", payload, options)
 end

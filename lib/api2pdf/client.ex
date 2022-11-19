@@ -1,17 +1,14 @@
 defmodule Api2pdf.ClientBehaviour do
-  alias Api2pdf.Model.ApiSuccessResponse
-
-  @callback make_request(url :: String.t(), payload :: struct, options :: keyword) ::
-              {:ok, ApiSuccessResponse.t()} | {:error, any}
+  @callback post_request(url :: String.t(), payload :: struct, options :: keyword) ::
+              {:error, any} | map
+  @callback get_request(url :: String.t(), options :: keyword) :: {:error, any} | map
 end
 
 defmodule Api2pdf.Client do
   @moduledoc """
   The default HTTP client that is based on `Tesla`.
   """
-
   alias Api2pdf.Util
-  alias Api2pdf.Model.ApiSuccessResponse
 
   @behaviour Api2pdf.ClientBehaviour
 
@@ -45,22 +42,29 @@ defmodule Api2pdf.Client do
     Tesla.client(middlewares, adapter)
   end
 
-  @spec make_request(String.t(), struct, keyword) ::
-          {:error, any} | {:ok, ApiSuccessResponse.t()}
-  def make_request(endpoint, payload, options \\ []) do
+  @spec post_request(String.t(), struct, keyword) :: {:error, any} | map
+  def post_request(endpoint, payload, options \\ []) do
     client = make_client(options)
     compacted_payload = payload |> Util.prune_nils()
 
     case Tesla.post(client, endpoint, compacted_payload) do
-      {:ok, resp} -> handle_body(resp.body)
+      {:ok, resp} -> resp
       err -> err
     end
   end
 
-  @doc false
-  @spec handle_body(map) :: {:error, any} | {:ok, ApiSuccessResponse.t()}
-  defp handle_body(%{"Error" => nil} = body), do: {:ok, ApiSuccessResponse.from_body(body)}
-  defp handle_body(%{"Error" => error}), do: {:error, error}
+  @spec get_request(String.t(), keyword) :: {:error, any} | map
+  def get_request(endpoint, options \\ []) do
+    client = make_client(options)
+    api_key = read_config(options, :api_key, "")
+    # put apikey into the query params
+    query = Keyword.get(options, :query, []) |> Keyword.put(:apikey, api_key)
+
+    case Tesla.get(client, endpoint, query) do
+      {:ok, resp} -> resp
+      err -> err
+    end
+  end
 
   defp read_config(options, key, default \\ nil) do
     # Attempt to read config from given options, if doesn't exist
