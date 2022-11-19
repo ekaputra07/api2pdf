@@ -6,40 +6,40 @@ At this point only features that are related to PDF generation and conversion ar
 
 Contribution are welcomed to add missing features or simply open a ticket for feature requests. If you're looking for API clients in other languages please check their [official repository](https://github.com/Api2Pdf).
 
-Below are lists of features that are supported (✓) and those that are not (x), grouped by their engine:
+Below are lists of features that are supported and those that are not, grouped by their engine:
 
 ### Headless Chrome
-- [✓] html_to_image (`Api2pdf.Chrome.html_to_image/2`)
-- [✓] html_to_pdf (`Api2pdf.Chrome.html_to_pdf/2`)
-- [✓] url_to_image (`Api2pdf.Chrome.url_to_image/2`)
-- [✓] url_to_pdf(`Api2pdf.Chrome.url_to_pdf/2`) 
+- [x] html_to_image (`Api2pdf.Chrome.html_to_image/2`)
+- [x] html_to_pdf (`Api2pdf.Chrome.html_to_pdf/2`)
+- [x] url_to_image (`Api2pdf.Chrome.url_to_image/2`)
+- [x] url_to_pdf(`Api2pdf.Chrome.url_to_pdf/2`) 
 
 ### Wkhtml
-- [✓] html_to_pdf (`Api2pdf.Wkhtml.html_to_pdf/2`)
-- [✓] url_to_pdf (`Api2pdf.Wkhtml.url_to_pdf/2`)
+- [x] html_to_pdf (`Api2pdf.Wkhtml.html_to_pdf/2`)
+- [x] url_to_pdf (`Api2pdf.Wkhtml.url_to_pdf/2`)
 
 ### Libre Office
-- [✓] any_to_pdf (`Api2pdf.LibreOffice.any_to_pdf/2`)
-- [✓] any_to_image (`Api2pdf.LibreOffice.any_to_image/2`)
-- [✓] pdf_to_html (`Api2pdf.LibreOffice.pdf_to_html/2`)
-- [✓] html_to_docx (`Api2pdf.LibreOffice.html_to_docx/2`)
-- [✓] html_to_xlsx (`Api2pdf.LibreOffice.html_to_xlsx/2`)
+- [x] any_to_pdf (`Api2pdf.LibreOffice.any_to_pdf/2`)
+- [x] any_to_image (`Api2pdf.LibreOffice.any_to_image/2`)
+- [x] pdf_to_html (`Api2pdf.LibreOffice.pdf_to_html/2`)
+- [x] html_to_docx (`Api2pdf.LibreOffice.html_to_docx/2`)
+- [x] html_to_xlsx (`Api2pdf.LibreOffice.html_to_xlsx/2`)
 
 ### PdfSharp
-- [x] merge_pdfs
-- [x] bookmark_pdf
-- [x] password_pdf
-- [x] extract_pdf
-- [x] compress_pdf
+- [ ] merge_pdfs
+- [ ] bookmark_pdf
+- [ ] password_pdf
+- [ ] extract_pdf
+- [ ] compress_pdf
 
 ### ZXING (Bar codes generator)
-- [x] generate_barcode
+- [ ] generate_barcode
 
 ### Utility Commands
-- [✓] check_balance (`Api2pdf.check_balance/1`)
-- [x] delete_file
-- [x] zip_files
-- [x] api_status 
+- [x] check_balance (`Api2pdf.check_balance/1`)
+- [ ] delete_file
+- [ ] zip_files
+- [ ] api_status 
 
 ## Installation
 
