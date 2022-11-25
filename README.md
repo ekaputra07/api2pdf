@@ -48,7 +48,7 @@ Add `api2pdf` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:api2pdf, "~> 0.1.0"}
+    {:api2pdf, "~> 0.1.1"}
   ]
 end
 ```
