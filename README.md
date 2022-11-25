@@ -1,6 +1,6 @@
 # Api2pdf
 
-An unofficial API client for PDF generator/converter service https://www.api2pdf.com.
+Unofficial API client for PDF generator/converter service https://www.api2pdf.com.
 
 At this point only features that are related to PDF generation and conversion are supported as those are the ones that I'm currently using personally.
 
@@ -55,7 +55,7 @@ end
 
 ## API Key
 
-api2pdf.com service requires API key to be able to access their endpoints which you can get by creating an account on their [membership portal site](https://portal.api2pdf.com).
+Api2pdf service requires API key to be able to access their endpoints which you can get by creating an account on their [membership portal site](https://portal.api2pdf.com).
 
 Once you have API key, you can pass it to this `Api2pdf` client in two ways.
 

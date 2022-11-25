@@ -1,8 +1,7 @@
 defmodule Api2pdf.MixProject do
   use Mix.Project
 
-  @source_url "https://github.com/ekaputra07/api2pdf"
-  @homepage_url "https://github.com/ekaputra07/api2pdf"
+  @source_url "https://github.com/elixir-id/api2pdf"
 
   def project do
     [
@@ -14,7 +13,6 @@ defmodule Api2pdf.MixProject do
       deps: deps(),
       name: "Api2pdf",
       source_url: @source_url,
-      homepage_url: @homepage_url,
       docs: docs()
     ]
   end
@@ -53,7 +51,6 @@ defmodule Api2pdf.MixProject do
       ],
       licenses: ["MIT"],
       links: %{
-        Website: @homepage_url,
         GitHub: @source_url
       }
     ]
