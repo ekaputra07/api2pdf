@@ -1,12 +1,12 @@
 defmodule Api2pdf.MixProject do
   use Mix.Project
 
-  @source_url "https://github.com/elixir-id/api2pdf"
+  @source_url "https://github.com/ekaputra07/api2pdf"
 
   def project do
     [
       app: :api2pdf,
-      version: "0.1.1",
+      version: "0.1.2",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       package: package(),
