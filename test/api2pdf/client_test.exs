@@ -35,7 +35,7 @@ defmodule Api2pdf.ClientTest do
             assert value == "test_api_key.env"
 
           {"user-agent", value} ->
-            assert value == "Api2pdf Elixir client/0.1.x (https://github.com/ekaputra07/api2pdf)"
+            assert value == "Api2pdf Elixir client/0.2.x (https://github.com/ekaputra07/api2pdf)"
         end
       end)
     end
@@ -72,7 +72,7 @@ defmodule Api2pdf.ClientTest do
             assert value == "test-tag.options"
 
           {"user-agent", value} ->
-            assert value == "Api2pdf Elixir client/0.1.x (https://github.com/ekaputra07/api2pdf)"
+            assert value == "Api2pdf Elixir client/0.2.x (https://github.com/ekaputra07/api2pdf)"
         end
       end)
     end

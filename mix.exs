@@ -6,7 +6,7 @@ defmodule Api2pdf.MixProject do
   def project do
     [
       app: :api2pdf,
-      version: "0.1.2",
+      version: "0.2.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       package: package(),
@@ -27,9 +27,9 @@ defmodule Api2pdf.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:tesla, "~> 1.4"},
-      {:hackney, "~> 1.17"},
-      {:jason, ">= 1.0.0"},
+      {:tesla, "~> 1.7"},
+      {:hackney, "~> 1.18"},
+      {:jason, "~> 1.4"},
       # dev and tests
       {:mox, "~> 1.0", only: :test},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false}

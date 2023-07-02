@@ -12,7 +12,7 @@ defmodule Api2pdf.Client do
 
   @behaviour Api2pdf.ClientBehaviour
 
-  @user_agent "Api2pdf Elixir client/0.1.x (https://github.com/ekaputra07/api2pdf)"
+  @user_agent "Api2pdf Elixir client/0.2.x (https://github.com/ekaputra07/api2pdf)"
 
   @spec make_client(keyword) :: Tesla.Client.t()
   def make_client(options \\ []) do
