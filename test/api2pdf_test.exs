@@ -6,12 +6,23 @@ defmodule Api2pdfTest do
   doctest Api2pdf
 
   describe "make_post_request/3" do
-    test "it success" do
+    test "it success (Error == nil)" do
       expect(ClientMock, :post_request, fn url, payload, opts ->
         assert url == "/test"
         assert payload == %{}
         assert opts == [tag: "test"]
         %{body: %{"Error" => nil}}
+      end)
+
+      assert {:ok, _} = Api2pdf.make_post_request("/test", %{}, tag: "test")
+    end
+
+    test "it success (no Error, but FileUrl present)" do
+      expect(ClientMock, :post_request, fn url, payload, opts ->
+        assert url == "/test"
+        assert payload == %{}
+        assert opts == [tag: "test"]
+        %{body: %{"FileUrl" => "test"}}
       end)
 
       assert {:ok, _} = Api2pdf.make_post_request("/test", %{}, tag: "test")
