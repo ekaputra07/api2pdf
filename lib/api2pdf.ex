@@ -42,6 +42,9 @@ defmodule Api2pdf do
   defp handle_response(%{body: %{"UserBalance" => _} = body}),
     do: {:ok, BalanceCheckSuccessResponse.from_body(body)}
 
+  defp handle_response(%{body: %{"FileUrl" => file_url} = body}) when is_binary(file_url),
+    do: {:ok, ApiSuccessResponse.from_body(body)}
+
   defp handle_response(%{body: %{"Error" => nil} = body}),
     do: {:ok, ApiSuccessResponse.from_body(body)}
 
