@@ -5,48 +5,39 @@ defmodule Api2pdfTest do
 
   doctest Api2pdf
 
-  describe "make_post_request/3" do
-    test "it success (Error == nil)" do
-      expect(ClientMock, :post_request, fn url, payload, opts ->
-        assert url == "/test"
-        assert payload == %{}
-        assert opts == [tag: "test"]
-        %{body: %{"Error" => nil}}
+  describe "status/1" do
+    test "it success" do
+      expect(ClientMock, :get_request, fn url, opts ->
+        assert url == "/status"
+        assert opts == []
+        %{body: "OK"}
       end)
 
-      assert {:ok, _} = Api2pdf.make_post_request("/test", %{}, tag: "test")
-    end
-
-    test "it success (no Error, but FileUrl present)" do
-      expect(ClientMock, :post_request, fn url, payload, opts ->
-        assert url == "/test"
-        assert payload == %{}
-        assert opts == [tag: "test"]
-        %{body: %{"FileUrl" => "test"}}
-      end)
-
-      assert {:ok, _} = Api2pdf.make_post_request("/test", %{}, tag: "test")
+      assert :ok = Api2pdf.status()
     end
 
     test "it failed (connection error)" do
-      expect(ClientMock, :post_request, fn _, _, _ ->
+      expect(ClientMock, :get_request, fn url, opts ->
+        assert url == "/status"
+        assert opts == []
         {:error, :timeout}
       end)
 
-      assert {:error, :timeout} = Api2pdf.make_post_request("/test", %{}, tag: "test")
+      assert :error = Api2pdf.status()
     end
 
-    test "it failed (validation error)" do
-      expect(ClientMock, :post_request, fn _, _, _ ->
-        {:error, "Api key TEST invalid"}
+    test "it failed (api error)" do
+      expect(ClientMock, :get_request, fn url, opts ->
+        assert url == "/status"
+        assert opts == []
+        %{body: "Invalid ApiKey"}
       end)
 
-      assert {:error, "Api key TEST invalid"} =
-               Api2pdf.make_post_request("/test", %{}, tag: "test")
+      assert :error = Api2pdf.status()
     end
   end
 
-  describe "check_balance/1" do
+  describe "balance/1" do
     test "it success" do
       expect(ClientMock, :get_request, fn url, opts ->
         assert url == "/balance"
@@ -54,7 +45,7 @@ defmodule Api2pdfTest do
         %{body: %{"UserBalance" => 10.2}}
       end)
 
-      assert {:ok, %{UserBalance: 10.2}} = Api2pdf.check_balance()
+      assert {:ok, 10.2} = Api2pdf.balance()
     end
 
     test "it failed (connection error)" do
@@ -64,7 +55,7 @@ defmodule Api2pdfTest do
         {:error, :timeout}
       end)
 
-      assert {:error, :timeout} = Api2pdf.check_balance()
+      assert {:error, :timeout} = Api2pdf.balance()
     end
 
     test "it failed (api error)" do
@@ -74,7 +65,41 @@ defmodule Api2pdfTest do
         %{body: "Invalid ApiKey"}
       end)
 
-      assert {:error, "Invalid ApiKey"} = Api2pdf.check_balance()
+      assert {:error, "Invalid ApiKey"} = Api2pdf.balance()
+    end
+  end
+
+  describe "delete_file/2" do
+    @response_id "test-id"
+
+    test "it success" do
+      expect(ClientMock, :delete_request, fn url, opts ->
+        assert url == "/file/#{@response_id}"
+        assert opts == []
+        %{body: %{"Success" => true}}
+      end)
+
+      assert {:ok, _} = Api2pdf.delete_file(@response_id)
+    end
+
+    test "it failed (connection error)" do
+      expect(ClientMock, :delete_request, fn url, opts ->
+        assert url == "/file/#{@response_id}"
+        assert opts == []
+        {:error, :timeout}
+      end)
+
+      assert {:error, :timeout} = Api2pdf.delete_file(@response_id)
+    end
+
+    test "it failed (api error)" do
+      expect(ClientMock, :delete_request, fn url, opts ->
+        assert url == "/file/#{@response_id}"
+        assert opts == []
+        %{body: "Invalid ApiKey"}
+      end)
+
+      assert {:error, "Invalid ApiKey"} = Api2pdf.delete_file(@response_id)
     end
   end
 end

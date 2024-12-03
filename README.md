@@ -1,10 +1,10 @@
 # Api2pdf
 
-Unofficial API client for PDF generator/converter service https://www.api2pdf.com.
+API client for PDF generator/converter service https://www.api2pdf.com.
 
-At this point only features that are related to PDF generation and conversion are supported as those are the ones that I'm currently using personally.
+At this point only features that are related to PDF generation and conversion that are supported as those are the ones that I'm currently using.
 
-Contribution are welcomed to add missing features or simply open a ticket for feature requests. If you're looking for API clients in other languages please check their [official repository](https://github.com/Api2Pdf).
+Contribution are welcomed to add/fix features or simply open a ticket for feature requests or bug report. If you're looking for API clients in other languages please check their [official repository](https://github.com/Api2Pdf).
 
 Below are lists of features that are supported and those that are not, grouped by their engine:
 
@@ -37,9 +37,9 @@ Below are lists of features that are supported and those that are not, grouped b
 
 ### Utility Commands
 - [x] check_balance (`Api2pdf.check_balance/1`)
-- [ ] delete_file
+- [x] delete_file
 - [ ] zip_files
-- [ ] api_status 
+- [x] api_status 
 
 ## Installation
 
@@ -48,7 +48,7 @@ Add `api2pdf` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:api2pdf, "~> 0.2"}
+    {:api2pdf, "~> 0.3"}
   ]
 end
 ```

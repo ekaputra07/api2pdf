@@ -63,10 +63,12 @@ defmodule Api2pdf.Wkhtml do
   def request(payload, options \\ [])
 
   def request(%WkhtmlHtmlToPdfRequest{} = payload, options) do
-    Api2pdf.make_post_request("/wkhtml/pdf/html", payload, options)
+    Api2pdf.http_client().post_request("/wkhtml/pdf/html", payload, options)
+    |> Api2pdf.handle_response()
   end
 
   def request(%WkhtmlUrlToPdfRequest{} = payload, options) do
-    Api2pdf.make_post_request("/wkhtml/pdf/url", payload, options)
+    Api2pdf.http_client().post_request("/wkhtml/pdf/url", payload, options)
+    |> Api2pdf.handle_response()
   end
 end

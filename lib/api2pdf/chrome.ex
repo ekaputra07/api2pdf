@@ -7,7 +7,8 @@ defmodule Api2pdf.Chrome do
     ChromeHtmlToImageRequest,
     ChromeHtmlToPdfRequest,
     ChromeUrlToImageRequest,
-    ChromeUrlToPdfRequest
+    ChromeUrlToPdfRequest,
+    ApiSuccessResponse
   }
 
   @doc """
@@ -103,18 +104,22 @@ defmodule Api2pdf.Chrome do
   def request(payload, options \\ [])
 
   def request(%ChromeHtmlToImageRequest{} = payload, options) do
-    Api2pdf.make_post_request("/chrome/image/html", payload, options)
+    Api2pdf.http_client().post_request("/chrome/image/html", payload, options)
+    |> Api2pdf.handle_response()
   end
 
   def request(%ChromeHtmlToPdfRequest{} = payload, options) do
-    Api2pdf.make_post_request("/chrome/pdf/html", payload, options)
+    Api2pdf.http_client().post_request("/chrome/pdf/html", payload, options)
+    |> Api2pdf.handle_response()
   end
 
   def request(%ChromeUrlToImageRequest{} = payload, options) do
-    Api2pdf.make_post_request("/chrome/image/url", payload, options)
+    Api2pdf.http_client().post_request("/chrome/image/url", payload, options)
+    |> Api2pdf.handle_response()
   end
 
   def request(%ChromeUrlToPdfRequest{} = payload, options) do
-    Api2pdf.make_post_request("/chrome/pdf/url", payload, options)
+    Api2pdf.http_client().post_request("/chrome/pdf/url", payload, options)
+    |> Api2pdf.handle_response()
   end
 end
