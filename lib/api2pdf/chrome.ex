@@ -2,6 +2,7 @@ defmodule Api2pdf.Chrome do
   @moduledoc """
   Convert HTML document, web page to PDF or Image using Headless Chrome backend.
   """
+  import Api2pdf, only: [http_client: 0, handle_response: 1]
 
   alias Api2pdf.Model.{
     ChromeHtmlToImageRequest,
@@ -104,22 +105,18 @@ defmodule Api2pdf.Chrome do
   def request(payload, options \\ [])
 
   def request(%ChromeHtmlToImageRequest{} = payload, options) do
-    Api2pdf.http_client().post_request("/chrome/image/html", payload, options)
-    |> Api2pdf.handle_response()
+    http_client().post_request("/chrome/image/html", payload, options) |> handle_response()
   end
 
   def request(%ChromeHtmlToPdfRequest{} = payload, options) do
-    Api2pdf.http_client().post_request("/chrome/pdf/html", payload, options)
-    |> Api2pdf.handle_response()
+    http_client().post_request("/chrome/pdf/html", payload, options) |> handle_response()
   end
 
   def request(%ChromeUrlToImageRequest{} = payload, options) do
-    Api2pdf.http_client().post_request("/chrome/image/url", payload, options)
-    |> Api2pdf.handle_response()
+    http_client().post_request("/chrome/image/url", payload, options) |> handle_response()
   end
 
   def request(%ChromeUrlToPdfRequest{} = payload, options) do
-    Api2pdf.http_client().post_request("/chrome/pdf/url", payload, options)
-    |> Api2pdf.handle_response()
+    http_client().post_request("/chrome/pdf/url", payload, options) |> handle_response()
   end
 end

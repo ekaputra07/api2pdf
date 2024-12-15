@@ -1,7 +1,7 @@
 defmodule Api2pdf do
   @moduledoc File.read!("README.md")
 
-  alias Api2pdf.Model.ApiSuccessResponse
+  alias Api2pdf.Model.{ApiSuccessResponse, ZipFilesRequest}
 
   @doc """
   Returns HTTP client.
@@ -27,8 +27,7 @@ defmodule Api2pdf do
   """
   @spec balance(keyword) :: {:error, any} | {:ok, number()}
   def balance(options \\ []) do
-    http_client().get_request("/balance", options)
-    |> handle_response()
+    http_client().get_request("/balance", options) |> handle_response()
   end
 
   @doc """
@@ -73,8 +72,32 @@ defmodule Api2pdf do
   """
   @spec delete_file(String.t(), keyword) :: {:ok, ApiSuccessResponse.t()} | {:error, any()}
   def delete_file(response_id, options \\ []) do
-    http_client().delete_request("/file/#{response_id}", options)
-    |> handle_response()
+    http_client().delete_request("/file/#{response_id}", options) |> handle_response()
+  end
+
+  @doc """
+  Create a ZIP file from a list of files.
+
+  https://app.swaggerhub.com/apis-docs/api2pdf/api2pdf/2.0.0#/Utility%20Commands/filesZip
+
+  ## Examples
+  ```elixir
+  alias Api2pdf.Model.ZipFilesRequest
+
+  files = ZipFilesRequest.new()
+    |> ZipFilesRequest.add("https://example.com/halo.png")
+    |> ZipFilesRequest.add("https://example.com/hola.png", "new-name.png")
+
+  # api_key in config.exs
+  {:ok, _} = Api2pdf.zip_files(files)
+
+  # OR, api_key as option
+  {:ok, _} = Api2pdf.zip_files(files, api_key: "YOUR-API-KEY")
+  ```
+  """
+  @spec zip_files(ZipFilesRequest.t(), keyword) :: {:error, any} | {:ok, ApiSuccessResponse.t()}
+  def zip_files(files, options \\ []) do
+    http_client().post_request("/zip?outputBinary=false", files, options) |> handle_response()
   end
 
   @doc """

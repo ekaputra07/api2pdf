@@ -1,6 +1,8 @@
 defmodule Api2pdfTest do
   use ExUnit.Case
   import Mox
+  alias Api2pdf.Model.ZipFilesRequest
+
   setup :verify_on_exit!
 
   doctest Api2pdf
@@ -100,6 +102,41 @@ defmodule Api2pdfTest do
       end)
 
       assert {:error, "Invalid ApiKey"} = Api2pdf.delete_file(@response_id)
+    end
+  end
+
+  describe "zip_files/2" do
+    @files ZipFilesRequest.new() |> ZipFilesRequest.add("https://example.com/halo.png")
+
+    test "it success" do
+      expect(ClientMock, :post_request, fn url, payload, opts ->
+        assert url == "/zip?outputBinary=false"
+        assert payload == @files
+        assert opts == []
+        %{body: %{"Success" => true}}
+      end)
+
+      assert {:ok, _} = Api2pdf.zip_files(@files)
+    end
+
+    test "it failed (connection error)" do
+      expect(ClientMock, :post_request, fn url, _payload, opts ->
+        assert url == "/zip?outputBinary=false"
+        assert opts == []
+        {:error, :timeout}
+      end)
+
+      assert {:error, :timeout} = Api2pdf.zip_files(@files)
+    end
+
+    test "it failed (api error)" do
+      expect(ClientMock, :post_request, fn url, _payload, opts ->
+        assert url == "/zip?outputBinary=false"
+        assert opts == []
+        %{body: "Invalid ApiKey"}
+      end)
+
+      assert {:error, "Invalid ApiKey"} = Api2pdf.zip_files(@files)
     end
   end
 end

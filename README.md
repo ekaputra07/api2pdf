@@ -36,10 +36,10 @@ Below are lists of features that are supported and those that are not, grouped b
 - [ ] generate_barcode
 
 ### Utility Commands
-- [x] check_balance (`Api2pdf.check_balance/1`)
-- [x] delete_file
-- [ ] zip_files
-- [x] api_status 
+- [x] check_balance (`Api2pdf.balance/1`)
+- [x] delete_file (`Api2pdf.delete_file/2`)
+- [x] zip_files (`Api2pdf.zip_files/2`)
+- [x] api_status (`Api2pdf.status/1`)
 
 ## Installation
 
