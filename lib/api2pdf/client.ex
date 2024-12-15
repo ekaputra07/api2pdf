@@ -2,6 +2,7 @@ defmodule Api2pdf.ClientBehaviour do
   @callback post_request(url :: String.t(), payload :: struct, options :: keyword) ::
               {:error, any} | map
   @callback get_request(url :: String.t(), options :: keyword) :: {:error, any} | map
+  @callback delete_request(url :: String.t(), options :: keyword) :: {:error, any} | map
 end
 
 defmodule Api2pdf.Client do
@@ -56,11 +57,18 @@ defmodule Api2pdf.Client do
   @spec get_request(String.t(), keyword) :: {:error, any} | map
   def get_request(endpoint, options \\ []) do
     client = make_client(options)
-    api_key = read_config(options, :api_key, "")
-    # put apikey into the query params
-    query = Keyword.get(options, :query, []) |> Keyword.put(:apikey, api_key)
 
-    case Tesla.get(client, endpoint, query) do
+    case Tesla.get(client, endpoint) do
+      {:ok, resp} -> resp
+      err -> err
+    end
+  end
+
+  @spec delete_request(String.t(), keyword) :: {:error, any} | map
+  def delete_request(endpoint, options \\ []) do
+    client = make_client(options)
+
+    case Tesla.delete(client, endpoint) do
       {:ok, resp} -> resp
       err -> err
     end
