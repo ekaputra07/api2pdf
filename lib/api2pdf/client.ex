@@ -1,8 +1,8 @@
 defmodule Api2pdf.ClientBehaviour do
-  @callback post_request(url :: String.t(), payload :: struct, options :: keyword) ::
+  @callback post(url :: String.t(), payload :: struct, options :: keyword) ::
               {:error, any} | map
-  @callback get_request(url :: String.t(), options :: keyword) :: {:error, any} | map
-  @callback delete_request(url :: String.t(), options :: keyword) :: {:error, any} | map
+  @callback get(url :: String.t(), options :: keyword) :: {:error, any} | map
+  @callback delete(url :: String.t(), options :: keyword) :: {:error, any} | map
 end
 
 defmodule Api2pdf.Client do
@@ -43,8 +43,8 @@ defmodule Api2pdf.Client do
     Tesla.client(middlewares, adapter)
   end
 
-  @spec post_request(String.t(), struct, keyword) :: {:error, any} | map
-  def post_request(endpoint, payload, options \\ []) do
+  @spec post(String.t(), struct, keyword) :: {:error, any} | map
+  def post(endpoint, payload, options \\ []) do
     client = make_client(options)
     compacted_payload = payload |> Util.prune_nils()
 
@@ -54,8 +54,8 @@ defmodule Api2pdf.Client do
     end
   end
 
-  @spec get_request(String.t(), keyword) :: {:error, any} | map
-  def get_request(endpoint, options \\ []) do
+  @spec get(String.t(), keyword) :: {:error, any} | map
+  def get(endpoint, options \\ []) do
     client = make_client(options)
 
     case Tesla.get(client, endpoint) do
@@ -64,8 +64,8 @@ defmodule Api2pdf.Client do
     end
   end
 
-  @spec delete_request(String.t(), keyword) :: {:error, any} | map
-  def delete_request(endpoint, options \\ []) do
+  @spec delete(String.t(), keyword) :: {:error, any} | map
+  def delete(endpoint, options \\ []) do
     client = make_client(options)
 
     case Tesla.delete(client, endpoint) do

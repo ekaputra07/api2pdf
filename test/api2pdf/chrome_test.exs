@@ -15,7 +15,7 @@ defmodule Api2pdf.ChromeTest do
   }
 
   test "html_to_image/2" do
-    expect(ClientMock, :post_request, fn url, payload, options ->
+    expect(ClientMock, :post, fn url, payload, options ->
       assert url == "/chrome/image/html"
       assert options == [tag: "tag"]
       assert %ChromeHtmlToImageRequest{html: "html"} = payload
@@ -26,7 +26,7 @@ defmodule Api2pdf.ChromeTest do
   end
 
   test "html_to_pdf/2" do
-    expect(ClientMock, :post_request, fn url, payload, options ->
+    expect(ClientMock, :post, fn url, payload, options ->
       assert url == "/chrome/pdf/html"
       assert options == [tag: "tag"]
       assert %ChromeHtmlToPdfRequest{html: "html"} = payload
@@ -37,7 +37,7 @@ defmodule Api2pdf.ChromeTest do
   end
 
   test "url_to_image/2" do
-    expect(ClientMock, :post_request, fn url, payload, options ->
+    expect(ClientMock, :post, fn url, payload, options ->
       assert url == "/chrome/image/url"
       assert options == [tag: "tag"]
       assert %ChromeUrlToImageRequest{url: "url"} = payload
@@ -48,7 +48,7 @@ defmodule Api2pdf.ChromeTest do
   end
 
   test "url_to_pdf/2" do
-    expect(ClientMock, :post_request, fn url, payload, options ->
+    expect(ClientMock, :post, fn url, payload, options ->
       assert url == "/chrome/pdf/url"
       assert options == [tag: "tag"]
       assert %ChromeUrlToPdfRequest{url: "url"} = payload

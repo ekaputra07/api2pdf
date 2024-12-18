@@ -33,7 +33,7 @@ Below are lists of features that are supported and those that are not, grouped b
 - [ ] compress_pdf
 
 ### ZXING (Bar codes generator)
-- [ ] generate_barcode
+- [x] gen_barcode (`Api2pdf.gen_barcode/2`)
 
 ### Utility Commands
 - [x] check_balance (`Api2pdf.balance/1`)

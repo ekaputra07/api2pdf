@@ -17,7 +17,7 @@ defmodule Api2pdf do
   https://app.swaggerhub.com/apis-docs/api2pdf/api2pdf/2.0.0#/Utility%20Commands/balanceCheck
 
   ## Examples
-  ```elixir
+  ```
   # api_key in config.exs
   {:ok, 5.0} = Api2pdf.balance()
 
@@ -27,7 +27,7 @@ defmodule Api2pdf do
   """
   @spec balance(keyword) :: {:error, any} | {:ok, number()}
   def balance(options \\ []) do
-    http_client().get_request("/balance", options) |> handle_response()
+    http_client().get("/balance", options) |> handle_response()
   end
 
   @doc """
@@ -36,7 +36,7 @@ defmodule Api2pdf do
   https://app.swaggerhub.com/apis-docs/api2pdf/api2pdf/2.0.0#/Utility%20Commands/statusCheck
 
   ## Examples
-  ```elixir
+  ```
   # api_key in config.exs
   :ok = Api2pdf.status()
 
@@ -46,7 +46,7 @@ defmodule Api2pdf do
   """
   @spec status(keyword) :: :ok | :error
   def status(options \\ []) do
-    http_client().get_request("/status", options)
+    http_client().get("/status", options)
     |> handle_response()
     |> case do
       {:ok, _} -> :ok
@@ -60,7 +60,7 @@ defmodule Api2pdf do
   https://app.swaggerhub.com/apis-docs/api2pdf/api2pdf/2.0.0#/Utility%20Commands/fileDELETE
 
   ## Examples
-  ```elixir
+  ```
   response_id = "857af41a-b382-4c61-ace4-95be78dcd605"
 
   # api_key in config.exs
@@ -72,7 +72,7 @@ defmodule Api2pdf do
   """
   @spec delete_file(String.t(), keyword) :: {:ok, ApiSuccessResponse.t()} | {:error, any()}
   def delete_file(response_id, options \\ []) do
-    http_client().delete_request("/file/#{response_id}", options) |> handle_response()
+    http_client().delete("/file/#{response_id}", options) |> handle_response()
   end
 
   @doc """
@@ -81,7 +81,7 @@ defmodule Api2pdf do
   https://app.swaggerhub.com/apis-docs/api2pdf/api2pdf/2.0.0#/Utility%20Commands/filesZip
 
   ## Examples
-  ```elixir
+  ```
   alias Api2pdf.Model.ZipFilesRequest
 
   files = ZipFilesRequest.new()
@@ -97,7 +97,47 @@ defmodule Api2pdf do
   """
   @spec zip_files(ZipFilesRequest.t(), keyword) :: {:error, any} | {:ok, ApiSuccessResponse.t()}
   def zip_files(files, options \\ []) do
-    http_client().post_request("/zip?outputBinary=false", files, options) |> handle_response()
+    http_client().post("/zip?outputBinary=false", files, options) |> handle_response()
+  end
+
+  @doc """
+  Generate a barcode image for specified format and value. The most common format are `CODE_39` and `QR_CODE`.
+
+  See full list of supported formats here:
+  https://www.api2pdf.com/documentation/advanced-options-zxing-zebra-crossing-barcodes/
+
+  ## Examples
+  ```
+  # generate with default options
+  {:ok, _} = Api2pdf.gen_barcode("QR_CODE", "some-data")
+
+  # generate with customized options
+  {:ok, _} = Api2pdf.gen_barcode("CODE_39", "some-data", width: 200, height: 200, showlabel: true)
+
+  # generate with customized options + api_key
+  {:ok, _} = Api2pdf.gen_barcode("QR_CODE", "some-data", width: 200, height: 200, showlabel: true, api_key: "YOUR-API-KEY")
+  ```
+  """
+  @spec gen_barcode(String.t(), String.t(), keyword) ::
+          {:error, any} | {:ok, ApiSuccessResponse.t()}
+  def gen_barcode(format, value, options \\ []) do
+    query =
+      URI.encode_query(%{
+        format: format,
+        value: value,
+        width: options[:width] || 0,
+        height: options[:height] || 0,
+        showlabel: options[:showlabel] || false,
+        outputBinary: false,
+      })
+
+    options =
+      options
+      |> Keyword.delete(:width)
+      |> Keyword.delete(:height)
+      |> Keyword.delete(:show_label)
+
+    http_client().get("/zebra?" <> query, options) |> handle_response()
   end
 
   @doc """

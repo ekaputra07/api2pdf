@@ -13,7 +13,7 @@ defmodule Api2pdf.WkhtmlTest do
   }
 
   test "html_to_pdf/2" do
-    expect(ClientMock, :post_request, fn url, payload, options ->
+    expect(ClientMock, :post, fn url, payload, options ->
       assert url == "/wkhtml/pdf/html"
       assert options == [tag: "tag"]
       assert %WkhtmlHtmlToPdfRequest{html: "html"} = payload
@@ -24,7 +24,7 @@ defmodule Api2pdf.WkhtmlTest do
   end
 
   test "url_to_pdf/2" do
-    expect(ClientMock, :post_request, fn url, payload, options ->
+    expect(ClientMock, :post, fn url, payload, options ->
       assert url == "/wkhtml/pdf/url"
       assert options == [tag: "tag"]
       assert %WkhtmlUrlToPdfRequest{url: "url"} = payload

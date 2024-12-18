@@ -21,7 +21,7 @@ defmodule Api2pdf.LibreOffice do
   @spec any_to_pdf(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def any_to_pdf(%LibreOfficeRequest{} = payload, options \\ []) do
-    http_client().post_request("/libreoffice/any-to-pdf", payload, options) |> handle_response()
+    http_client().post("/libreoffice/any-to-pdf", payload, options) |> handle_response()
   end
 
   @doc """
@@ -38,7 +38,7 @@ defmodule Api2pdf.LibreOffice do
   @spec any_to_image(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def any_to_image(%LibreOfficeRequest{} = payload, options \\ []) do
-    http_client().post_request("/libreoffice/thumbnail", payload, options) |> handle_response()
+    http_client().post("/libreoffice/thumbnail", payload, options) |> handle_response()
   end
 
   @doc """
@@ -53,7 +53,7 @@ defmodule Api2pdf.LibreOffice do
   @spec pdf_to_html(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def pdf_to_html(%LibreOfficeRequest{} = payload, options \\ []) do
-    http_client().post_request("/libreoffice/pdf-to-html", payload, options) |> handle_response()
+    http_client().post("/libreoffice/pdf-to-html", payload, options) |> handle_response()
   end
 
   @doc """
@@ -68,7 +68,7 @@ defmodule Api2pdf.LibreOffice do
   @spec html_to_docx(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def html_to_docx(%LibreOfficeRequest{} = payload, options \\ []) do
-    http_client().post_request("/libreoffice/html-to-docx", payload, options) |> handle_response()
+    http_client().post("/libreoffice/html-to-docx", payload, options) |> handle_response()
   end
 
   @doc """
@@ -83,6 +83,6 @@ defmodule Api2pdf.LibreOffice do
   @spec html_to_xlsx(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def html_to_xlsx(%LibreOfficeRequest{} = payload, options \\ []) do
-    http_client().post_request("/libreoffice/html-to-xlsx", payload, options) |> handle_response()
+    http_client().post("/libreoffice/html-to-xlsx", payload, options) |> handle_response()
   end
 end

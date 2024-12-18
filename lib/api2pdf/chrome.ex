@@ -105,18 +105,18 @@ defmodule Api2pdf.Chrome do
   def request(payload, options \\ [])
 
   def request(%ChromeHtmlToImageRequest{} = payload, options) do
-    http_client().post_request("/chrome/image/html", payload, options) |> handle_response()
+    http_client().post("/chrome/image/html", payload, options) |> handle_response()
   end
 
   def request(%ChromeHtmlToPdfRequest{} = payload, options) do
-    http_client().post_request("/chrome/pdf/html", payload, options) |> handle_response()
+    http_client().post("/chrome/pdf/html", payload, options) |> handle_response()
   end
 
   def request(%ChromeUrlToImageRequest{} = payload, options) do
-    http_client().post_request("/chrome/image/url", payload, options) |> handle_response()
+    http_client().post("/chrome/image/url", payload, options) |> handle_response()
   end
 
   def request(%ChromeUrlToPdfRequest{} = payload, options) do
-    http_client().post_request("/chrome/pdf/url", payload, options) |> handle_response()
+    http_client().post("/chrome/pdf/url", payload, options) |> handle_response()
   end
 end
