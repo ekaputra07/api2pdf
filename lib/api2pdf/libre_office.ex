@@ -2,7 +2,9 @@ defmodule Api2pdf.LibreOffice do
   @moduledoc """
   Convert documents from and to various formats using Libre Office backend.
   """
-  import Api2pdf, only: [http_client: 0, handle_response: 1]
+  import Api2pdf, only: [handle_response: 1]
+
+  alias Api2pdf.HTTP
 
   alias Api2pdf.Model.{
     LibreOfficeRequest,
@@ -21,7 +23,7 @@ defmodule Api2pdf.LibreOffice do
   @spec any_to_pdf(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def any_to_pdf(%LibreOfficeRequest{} = payload, options \\ []) do
-    http_client().post("/libreoffice/any-to-pdf", payload, options) |> handle_response()
+    HTTP.post("/libreoffice/any-to-pdf", payload, options) |> handle_response()
   end
 
   @doc """
@@ -38,7 +40,7 @@ defmodule Api2pdf.LibreOffice do
   @spec any_to_image(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def any_to_image(%LibreOfficeRequest{} = payload, options \\ []) do
-    http_client().post("/libreoffice/thumbnail", payload, options) |> handle_response()
+    HTTP.post("/libreoffice/thumbnail", payload, options) |> handle_response()
   end
 
   @doc """
@@ -53,7 +55,7 @@ defmodule Api2pdf.LibreOffice do
   @spec pdf_to_html(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def pdf_to_html(%LibreOfficeRequest{} = payload, options \\ []) do
-    http_client().post("/libreoffice/pdf-to-html", payload, options) |> handle_response()
+    HTTP.post("/libreoffice/pdf-to-html", payload, options) |> handle_response()
   end
 
   @doc """
@@ -68,7 +70,7 @@ defmodule Api2pdf.LibreOffice do
   @spec html_to_docx(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def html_to_docx(%LibreOfficeRequest{} = payload, options \\ []) do
-    http_client().post("/libreoffice/html-to-docx", payload, options) |> handle_response()
+    HTTP.post("/libreoffice/html-to-docx", payload, options) |> handle_response()
   end
 
   @doc """
@@ -83,6 +85,6 @@ defmodule Api2pdf.LibreOffice do
   @spec html_to_xlsx(LibreOfficeRequest.t(), keyword) ::
           {:error, any} | {:ok, ApiSuccessResponse.t()}
   def html_to_xlsx(%LibreOfficeRequest{} = payload, options \\ []) do
-    http_client().post("/libreoffice/html-to-xlsx", payload, options) |> handle_response()
+    HTTP.post("/libreoffice/html-to-xlsx", payload, options) |> handle_response()
   end
 end

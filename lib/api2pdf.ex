@@ -1,15 +1,8 @@
 defmodule Api2pdf do
   @moduledoc File.read!("README.md")
 
+  alias Api2pdf.HTTP
   alias Api2pdf.Model.{ApiSuccessResponse, ZipFilesRequest}
-
-  @doc """
-  Returns HTTP client.
-  """
-  @spec http_client() :: any()
-  def http_client() do
-    Application.get_env(:api2pdf, :client, Api2pdf.Client)
-  end
 
   @doc """
   Utility command to check your balance on https://portal.api2pdf.com.
@@ -27,7 +20,7 @@ defmodule Api2pdf do
   """
   @spec balance(keyword) :: {:error, any} | {:ok, number()}
   def balance(options \\ []) do
-    http_client().get("/balance", options) |> handle_response()
+    HTTP.get("/balance", options) |> handle_response()
   end
 
   @doc """
@@ -46,7 +39,7 @@ defmodule Api2pdf do
   """
   @spec status(keyword) :: :ok | :error
   def status(options \\ []) do
-    http_client().get("/status", options)
+    HTTP.get("/status", options)
     |> handle_response()
     |> case do
       {:ok, _} -> :ok
@@ -72,7 +65,7 @@ defmodule Api2pdf do
   """
   @spec delete_file(String.t(), keyword) :: {:ok, ApiSuccessResponse.t()} | {:error, any()}
   def delete_file(response_id, options \\ []) do
-    http_client().delete("/file/#{response_id}", options) |> handle_response()
+    HTTP.delete("/file/#{response_id}", options) |> handle_response()
   end
 
   @doc """
@@ -97,7 +90,7 @@ defmodule Api2pdf do
   """
   @spec zip_files(ZipFilesRequest.t(), keyword) :: {:error, any} | {:ok, ApiSuccessResponse.t()}
   def zip_files(files, options \\ []) do
-    http_client().post("/zip?outputBinary=false", files, options) |> handle_response()
+    HTTP.post("/zip?outputBinary=false", files, options) |> handle_response()
   end
 
   @doc """
@@ -128,7 +121,7 @@ defmodule Api2pdf do
         width: options[:width] || 0,
         height: options[:height] || 0,
         showlabel: options[:showlabel] || false,
-        outputBinary: false,
+        outputBinary: false
       })
 
     options =
@@ -137,7 +130,7 @@ defmodule Api2pdf do
       |> Keyword.delete(:height)
       |> Keyword.delete(:show_label)
 
-    http_client().get("/zebra?" <> query, options) |> handle_response()
+    HTTP.get("/zebra?" <> query, options) |> handle_response()
   end
 
   @doc """

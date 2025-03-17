@@ -1,20 +1,20 @@
-defmodule Api2pdf.ClientTest do
+defmodule Api2pdf.HTTPTest do
   use ExUnit.Case
   import Mox
   setup :verify_on_exit!
 
-  describe "make_client/1" do
+  describe "Api2pdf.HTTP.Tesla.make_client/1" do
     test "it load config from Application.env" do
       Application.put_all_env([
         {:api2pdf,
          [
            base_url: "https://test_base_url.env",
            api_key: "test_api_key.env",
-           adapter: Tesla.Adapter.Httpc
+           tesla_adapter: Tesla.Adapter.Httpc
          ]}
       ])
 
-      client = Api2pdf.Client.make_client()
+      client = Api2pdf.HTTP.Tesla.make_client()
       assert %Tesla.Client{adapter: {Tesla.Adapter.Httpc, _, _}} = client
 
       [
@@ -35,17 +35,17 @@ defmodule Api2pdf.ClientTest do
             assert value == "test_api_key.env"
 
           {"user-agent", value} ->
-            assert value == "Api2pdf Elixir client/0.2.x (https://github.com/ekaputra07/api2pdf)"
+            assert value == "Api2pdf Elixir client/0.3.x (https://github.com/ekaputra07/api2pdf)"
         end
       end)
     end
 
-    test "it lod config from options and takes precedence over Application.env" do
+    test "it load config from options and takes precedence over Application.env" do
       client =
-        Api2pdf.Client.make_client(
+        Api2pdf.HTTP.Tesla.make_client(
           base_url: "https://test_base_url.options",
           api_key: "test_api_key.options",
-          adapter: Tesla.Adapter.Shared,
+          tesla_adapter: Tesla.Adapter.Shared,
           tag: "test-tag.options"
         )
 
@@ -72,7 +72,7 @@ defmodule Api2pdf.ClientTest do
             assert value == "test-tag.options"
 
           {"user-agent", value} ->
-            assert value == "Api2pdf Elixir client/0.2.x (https://github.com/ekaputra07/api2pdf)"
+            assert value == "Api2pdf Elixir client/0.3.x (https://github.com/ekaputra07/api2pdf)"
         end
       end)
     end

@@ -2,7 +2,9 @@ defmodule Api2pdf.Wkhtml do
   @moduledoc """
   Convert HTML document or web page to PDF using Wkhtml backend.
   """
-  import Api2pdf, only: [http_client: 0, handle_response: 1]
+  import Api2pdf, only: [handle_response: 1]
+
+  alias Api2pdf.HTTP
 
   alias Api2pdf.Model.{
     ApiSuccessResponse,
@@ -64,10 +66,10 @@ defmodule Api2pdf.Wkhtml do
   def request(payload, options \\ [])
 
   def request(%WkhtmlHtmlToPdfRequest{} = payload, options) do
-    http_client().post("/wkhtml/pdf/html", payload, options) |> handle_response()
+    HTTP.post("/wkhtml/pdf/html", payload, options) |> handle_response()
   end
 
   def request(%WkhtmlUrlToPdfRequest{} = payload, options) do
-    http_client().post("/wkhtml/pdf/url", payload, options) |> handle_response()
+    HTTP.post("/wkhtml/pdf/url", payload, options) |> handle_response()
   end
 end

@@ -27,7 +27,7 @@ defmodule Api2pdf.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:tesla, "~> 1.7"},
+      {:tesla, "~> 1.11"},
       {:hackney, "~> 1.18"},
       {:jason, "~> 1.4"},
       # dev and tests

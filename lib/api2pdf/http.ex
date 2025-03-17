@@ -1,25 +1,32 @@
-defmodule Api2pdf.ClientBehaviour do
+defmodule Api2pdf.HTTP do
   @callback post(url :: String.t(), payload :: struct, options :: keyword) ::
               {:error, any} | map
   @callback get(url :: String.t(), options :: keyword) :: {:error, any} | map
   @callback delete(url :: String.t(), options :: keyword) :: {:error, any} | map
+
+  defp impl(), do: Application.get_env(:api2pdf, :http_impl, Api2pdf.HTTP.Tesla)
+  def post(url, payload, options \\ []), do: impl().post(url, payload, options)
+  def get(url, options \\ []), do: impl().get(url, options)
+  def delete(url, options \\ []), do: impl().delete(url, options)
 end
 
-defmodule Api2pdf.Client do
+defmodule Api2pdf.HTTP.Tesla do
   @moduledoc """
   The default HTTP client that is based on `Tesla`.
   """
   alias Api2pdf.Util
 
-  @behaviour Api2pdf.ClientBehaviour
+  @behaviour Api2pdf.HTTP
 
-  @user_agent "Api2pdf Elixir client/0.2.x (https://github.com/ekaputra07/api2pdf)"
+  @user_agent "Api2pdf Elixir client/0.3.x (https://github.com/ekaputra07/api2pdf)"
 
-  @spec make_client(keyword) :: Tesla.Client.t()
   def make_client(options \\ []) do
     base_url = read_config(options, :base_url, "https://v2.api2pdf.com")
     api_key = read_config(options, :api_key, "")
-    adapter = read_config(options, :adapter, {Tesla.Adapter.Hackney, [recv_timeout: 30_000]})
+
+    adapter =
+      read_config(options, :tesla_adapter, {Tesla.Adapter.Hackney, [recv_timeout: 30_000]})
+
     tag = read_config(options, :tag)
 
     headers = [
